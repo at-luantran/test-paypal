@@ -1,0 +1,38 @@
+<div>
+  <h2>
+    <strong>Pay on Paypal</strong>
+  </h2>
+</div>
+<div>
+  <div class="row">
+    <div class="row col-md-6 col-md-offset-3">
+      <%= form_for @payment, url: payments_path(@payment) do |f| %>
+        <div class="form-group">
+          <%= f.label :quantity %>
+          <%= f.text_field :quantity %>
+        </div>
+        <%= f.submit "Pay on Paypal", type: "image",  class: "btn btn-primary btn-medium center-block", id: 'paypal_submit',  src:'https://www.paypal.com/en_US/i/btn/btn_dg_pay_w_paypal.gif' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script src="https://www.paypalobjects.com/js/external/dg.js"></script>
+<script>
+  
+  $(function(){
+    var sandbox = true;
+    var submit_id = 'paypal_submit';
+    flow_config = {trigger: submit_id};
+    if (sandbox) flow_config.stage = sandbox;
+    window.paypal_flows = [];
+    window.paypal_flows.push(new PAYPAL.apps.DGFlow(flow_config));
+
+    $("#payment_customer_type_collection").click(function(){
+      $(".customer").show();
+    })
+    $("#payment_customer_type_user").click(function(){
+      $(".customer").hide();
+    })
+  });
+
+</script>
